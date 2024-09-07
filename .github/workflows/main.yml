@@ -8,17 +8,23 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v4
+      # - name: Check out repository code
+      #   uses: actions/checkout@v4
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-      - name: Invoke deployment hook
-        uses: distributhor/workflow-webhook@v3
-        with:
-          webhook_url: ${{ secrets.WEBHOOK_URL }}
-          webhook_auth_type: "bearer"
-          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}      
+      - run: export IMAGE_VERSION=$(date +'%y%m%d_%H%M%S')
+      - run: docker run --rm -v `pwd`:/workdir --workdir /workdir -v /data/build_share/pnpm_store:/pnpm_store 
+             hub.feinian.net/library/node:18-alpine /bin/sh -c "node --version && npm i -g pnpm && pnpm install --store=/pnpm_store && pnpm run build"
+      - run: docker login --username ${{ secrets.HUB_USERNAME }} --password ${{ secrets.HUB_PASSWORD }} ${{ secrets.HUB_HOST }}
+      - run: docker build -t ${{ secrets.HUB_HOST }}/agilelabs/agilelabs_docs:$IMAGE_VERSION --file `pwd`/Dockerfile `pwd`/build
+      - run: docker push ${{ secrets.HUB_HOST }}/agilelabs/agilelabs_docs:$IMAGE_VERSION      
+      # - name: Invoke deployment hook
+      #   uses: distributhor/workflow-webhook@v3
+      #   with:
+      #     webhook_url: ${{ secrets.WEBHOOK_URL }}
+      #     webhook_auth_type: "bearer"
+      #     webhook_secret: ${{ secrets.WEBHOOK_SECRET }}      
