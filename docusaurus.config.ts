@@ -26,7 +26,7 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'zh-cn',
-    locales: ['zh-cn', 'zh-tw', 'en'],
+    locales: ['zh-cn', 'en'],
   },
 
   presets: [
@@ -81,6 +81,14 @@ const config: Config = {
           label: '文档',
         },
         // { to: '/blog', label: 'Blog', position: 'left' },
+        {
+          type: 'docsVersionDropdown',
+          position: 'right',
+        },
+        {
+          type: 'localeDropdown',
+          position: 'right',
+        },
         {
           href: 'https://github.com/dukecheng/agilelabs.docs',
           label: 'GitHub',
