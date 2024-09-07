@@ -1,0 +1,7 @@
+- name: Trigger webhook
+  uses: magdemajt/trigger-webhook@v1
+  with:
+    url: https://devops.feinian.net
+    json: {}    
+    headers: {}
+          
