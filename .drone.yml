@@ -33,7 +33,7 @@ steps:
       - export BUILD_VERSION=$${APP_NAME}_$${IMAGE_VERSION}
       - echo "current version:" $BUILD_VERSION
       - docker run --rm -v `pwd`:/workdir --workdir /workdir -v /data/build_share/pnpm_store:/pnpm_store 
-        hub.feinian.net/library/node:20-alpine /bin/sh -c "node --version && npm i -g pnpm && pnpm install --store=/pnpm_store && pnpm run build"
+        hub.feinian.net/library/node:20-alpine /bin/sh -c "node --version && npm config set registry https://registry.npmmirror.com && npm i -g pnpm && pnpm install --store=/pnpm_store && pnpm run build"
       - echo $BUILD_VERSION > `pwd`/build/version.txt
 
       - docker login --username $$HUB_USERNAME --password $$HUB_PASSWORD $$HUB_HOST
@@ -43,4 +43,4 @@ steps:
       - . `pwd`/current_version.ini
       - export DEPLOY_APP_NAME=agilelabs/$APP_NAME
       - echo "kubectl -n agilelabs set image deployment/agilelabs-docs agilelabs-docs=$HUB_HOST/$DEPLOY_APP_NAME:$IMAGE_VERSION"
-      - kubectl -n wagilelabs001 set image deployment/agilelabs-docs agilelabs-docs=$HUB_HOST/$DEPLOY_APP_NAME:$IMAGE_VERSION      
+      - kubectl -n wagilelabs001 set image deployment/agilelabs-docs agilelabs-docs=$HUB_HOST/$DEPLOY_APP_NAME:$IMAGE_VERSION
