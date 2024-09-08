@@ -26,7 +26,7 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'zh-cn',
-    locales: ['zh-cn', 'en'],
+    locales: ['zh-cn'],
   },
 
   presets: [
@@ -72,21 +72,33 @@ const config: Config = {
         src: 'img/logo.svg',
       },
       items: [
-        { to: '/my-page', label: '介绍', position: 'left' },
-        { to: '/docs/get-strated', label: '起步', position: 'left' },
+        // { to: '/my-page', label: '介绍', position: 'left' },
+        // { to: '/docs/get-strated', label: '起步', position: 'left' },
+
         {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: '文档',
         },
+
         // { to: '/blog', label: 'Blog', position: 'left' },
         {
           type: 'docsVersionDropdown',
           position: 'right',
         },
+        // {
+        //   type: 'localeDropdown',
+        //   position: 'right',
+        // },        
         {
-          type: 'localeDropdown',
+          href: 'https://git.feinian.net/agilelabs.framework',
+          label: '框架GIT仓库(CN)',
+          position: 'right',
+        },
+        {
+          href: 'https://git.feinian.net/agilelabs.framework/agilelabs.docs',
+          label: 'Gitea(CN)',
           position: 'right',
         },
         {
