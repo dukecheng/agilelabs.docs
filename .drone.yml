@@ -39,8 +39,6 @@ steps:
       - docker login --username $$HUB_USERNAME --password $$HUB_PASSWORD $$HUB_HOST
       - docker build -t $HUB_HOST/agilelabs/$APP_NAME:$IMAGE_VERSION --file `pwd`/Dockerfile `pwd`/build
       - docker push $HUB_HOST/agilelabs/$APP_NAME:$IMAGE_VERSION
-      - cat `pwd`/current_version.ini
-      - . `pwd`/current_version.ini
       - export DEPLOY_APP_NAME=agilelabs/$APP_NAME
       - echo "kubectl -n agilelabs set image deployment/agilelabs-docs agilelabs-docs=$HUB_HOST/$DEPLOY_APP_NAME:$IMAGE_VERSION"
       - kubectl -n wagilelabs001 set image deployment/agilelabs-docs agilelabs-docs=$HUB_HOST/$DEPLOY_APP_NAME:$IMAGE_VERSION
