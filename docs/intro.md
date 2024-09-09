@@ -4,6 +4,11 @@ sidebar_position: 1
 
 # 介绍
 
+AgileLabs Framework是一套基于微软.net core Web项目的开发框架(基础类库)
+
+提供了一套自己的行为规范, 覆盖程序的宿主，启动，停止，业务处理上下文, 业务设计模式, 基础工具类库, 开发阶段支持, 第三方类库封装
+
+
 <!-- Let's discover **Docusaurus in less than 5 minutes**.
 
 ## Getting Started
